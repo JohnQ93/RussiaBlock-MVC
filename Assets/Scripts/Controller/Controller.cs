@@ -4,19 +4,40 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour {
 
-	[HideInInspector]
-	public Model model;
-	[HideInInspector]
-	public View view;
+    [HideInInspector]
+    public Model model;
+    [HideInInspector]
+    public View view;
+    [HideInInspector]
+    public CameraManager cameraManager;
 
-	private void Awake()
-	{
-		model = GameObject.FindGameObjectWithTag("Model").GetComponent<Model>();
-		view = GameObject.FindGameObjectWithTag("View").GetComponent<View>();
-	}
+    public FSMSystem fsm;
 
-	// Update is called once per frame
-	void Update () {
+    private void Awake()
+    {
+        model = GameObject.FindGameObjectWithTag("Model").GetComponent<Model>();
+        view = GameObject.FindGameObjectWithTag("View").GetComponent<View>();
+        cameraManager = GetComponent<CameraManager>();
+    }
+    private void Start()
+    {
+        MakeFSM();
+    }
 
-	}
+    // Update is called once per frame
+    void Update () {
+
+    }
+
+    void MakeFSM()
+    {
+        fsm = new FSMSystem();
+        FSMState[] states = GetComponentsInChildren<FSMState>();
+        foreach (FSMState state in states)
+        {
+            fsm.AddState(state,this);
+        }
+        FSMState menuState = GetComponentInChildren<MenuState>();
+        fsm.SetCurrentState(menuState);
+    }
 }
