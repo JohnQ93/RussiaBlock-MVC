@@ -10,6 +10,8 @@ public class Controller : MonoBehaviour {
     public View view;
     [HideInInspector]
     public CameraManager cameraManager;
+    [HideInInspector]
+    public GameManager gameManager;
 
     public FSMSystem fsm;
 
@@ -18,6 +20,7 @@ public class Controller : MonoBehaviour {
         model = GameObject.FindGameObjectWithTag("Model").GetComponent<Model>();
         view = GameObject.FindGameObjectWithTag("View").GetComponent<View>();
         cameraManager = GetComponent<CameraManager>();
+        gameManager = GetComponent<GameManager>();
     }
     private void Start()
     {

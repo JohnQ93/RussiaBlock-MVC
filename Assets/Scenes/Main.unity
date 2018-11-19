@@ -1641,7 +1641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 147.59998, y: 0}
+  m_AnchoredPosition: {x: 179, y: 0}
   m_SizeDelta: {x: 160, y: 89.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225232547
@@ -2241,7 +2241,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1501310365812052, guid: 6f312af7167e9a347ae666125e5eb469, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f312af7167e9a347ae666125e5eb469, type: 2}
@@ -5397,7 +5397,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10001010
+  m_Text: 100010
 --- !u!222 &726247276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8752,7 +8752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -141, y: -0.000036239}
+  m_AnchoredPosition: {x: -170, y: -0.000036239}
   m_SizeDelta: {x: 160, y: 89.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1135893125
@@ -10385,7 +10385,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10001010
+  m_Text: '100010
+
+'
 --- !u!222 &1376471340
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12797,6 +12799,7 @@ MonoBehaviour:
   model: {fileID: 0}
   view: {fileID: 0}
   cameraManager: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!4 &1812769803
 Transform:
   m_ObjectHideFlags: 0
@@ -12833,8 +12836,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f599e6f7eddec804abc3ad105e40dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shapes: []
-  colors: []
+  shapes:
+  - {fileID: 114947810229365790, guid: c8331c3799ae8fc46883e6eeba3d756a, type: 2}
+  - {fileID: 114015230279562048, guid: 61f49caec0737944ca992e2bedb199c6, type: 2}
+  - {fileID: 114529864822964608, guid: 09680a403f9f26949bea9daac3120cef, type: 2}
+  - {fileID: 114334556362391582, guid: 2a4e46b93b3fdee47be27d4c5f16e2b5, type: 2}
+  - {fileID: 114691937082881506, guid: f88c7ed9dc17650459e41472b062e919, type: 2}
+  - {fileID: 114930312585826822, guid: 68e3fa9a330d6dc43bf3fec6264720c2, type: 2}
+  - {fileID: 114631715160090672, guid: f805943b02513b341ac8c544c1002df3, type: 2}
+  colors:
+  - {r: 0.3019608, g: 0.8352942, b: 0.6901961, a: 1}
+  - {r: 0.9294118, g: 0.58431375, b: 0.2901961, a: 1}
+  - {r: 0.59607846, g: 0.86274517, b: 0.33333334, a: 1}
+  - {r: 0.86274517, g: 0.39607847, b: 0.33333334, a: 1}
+  - {r: 0.36078432, g: 0.74509805, b: 0.8941177, a: 1}
+  - {r: 0.2627451, g: 0.7294118, b: 0.6039216, a: 1}
+  - {r: 0.34901962, g: 0.7960785, b: 0.5254902, a: 1}
 --- !u!1001 &1820720061
 Prefab:
   m_ObjectHideFlags: 0

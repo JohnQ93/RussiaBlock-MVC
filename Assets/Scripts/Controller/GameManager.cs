@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    private Shape currentShape = null;
     private bool isPause = true;
     public Shape[] shapes;
     public Color[] colors;
 
-    // Use this for initialization
-    void Start () {
 
-    }
-
-    // Update is called once per frame
     void Update () {
         if (isPause) return;
+        if(currentShape == null)
+        {
+            SpawnShape();
+        }
+    }
+
+    public void StartGame()
+    {
+        isPause = false;
+    }
+
+    public void PauseGame()
+    {
+        isPause = true;
     }
 
     public void SpawnShape()
     {
         int index = Random.Range(0, shapes.Length);
         int indexColor = Random.Range(0, colors.Length);
-        Shape shape = Instantiate(shapes[index]);
-        shape.init(colors[indexColor]);
+        currentShape = Instantiate(shapes[index]);
+        currentShape.init(colors[indexColor]);
     }
 }
