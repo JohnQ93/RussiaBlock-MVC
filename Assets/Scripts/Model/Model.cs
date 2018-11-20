@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Model : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public const int MAX_ROWS = 23;
+    public const int MAX_COLUMNS = 10;
+
+    private Transform[,] map = new Transform[MAX_COLUMNS, MAX_ROWS];
+
+    public bool IsValidMapPosition(Transform t)
+    {
+        foreach (Transform child in t)
+        {
+            if (child.tag != "Block") continue;
+            Vector2 pos = child.position.Round();
+            if (!IsInsideMap(pos)) return false;
+            if (map[(int)pos.x, (int)pos.y] != null) return false;
+        }
+        return true;
+    }
+
+    private bool IsInsideMap(Vector2 pos)
+    {
+        return pos.x >= 0 && pos.x < MAX_COLUMNS && pos.y >= 0;
+    }
 }
