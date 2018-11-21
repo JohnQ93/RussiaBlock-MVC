@@ -12,6 +12,8 @@ public class Controller : MonoBehaviour {
     public CameraManager cameraManager;
     [HideInInspector]
     public GameManager gameManager;
+    [HideInInspector]
+    public AudioManager audioManager;
 
     public FSMSystem fsm;
 
@@ -21,6 +23,7 @@ public class Controller : MonoBehaviour {
         view = GameObject.FindGameObjectWithTag("View").GetComponent<View>();
         cameraManager = GetComponent<CameraManager>();
         gameManager = GetComponent<GameManager>();
+        audioManager = GetComponent<AudioManager>();
     }
     private void Start()
     {

@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour {
     public Shape[] shapes;
     public Color[] colors;
 
+    private Controller ctrl;
+
+    private void Awake()
+    {
+        ctrl = transform.GetComponent<Controller>();
+    }
 
     void Update () {
         if (isPause) return;
@@ -21,11 +27,19 @@ public class GameManager : MonoBehaviour {
     public void StartGame()
     {
         isPause = false;
+        if (currentShape != null)
+        {
+            currentShape.ResumeFall();
+        }
     }
 
     public void PauseGame()
     {
         isPause = true;
+        if (currentShape != null)
+        {
+            currentShape.PauseFall();
+        }
     }
 
     public void SpawnShape()
@@ -33,6 +47,11 @@ public class GameManager : MonoBehaviour {
         int index = Random.Range(0, shapes.Length);
         int indexColor = Random.Range(0, colors.Length);
         currentShape = Instantiate(shapes[index]);
-        currentShape.init(colors[indexColor]);
+        currentShape.init(colors[indexColor], ctrl);
+    }
+
+    public void FallDown()
+    {
+        currentShape = null;
     }
 }

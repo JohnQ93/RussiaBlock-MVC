@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shape : MonoBehaviour {
 
+    private Controller ctrl;
+
     SpriteRenderer[] renders;
 
     private bool isPause = false;
@@ -24,14 +26,17 @@ public class Shape : MonoBehaviour {
             timer = 0;
             Fall();
         }
+        InputControl();
+        Debug.Log(Input.GetAxisRaw("Horizontal"));
     }
 
-    public void init(Color color)
+    public void init(Color color, Controller controller)
     {
         foreach (var block in renders)
         {
             block.color = color;
         }
+        this.ctrl = controller;
     }
 
     private void Fall()
@@ -39,5 +44,41 @@ public class Shape : MonoBehaviour {
         var pos = transform.position;
         pos.y -= 1;
         transform.position = pos;
+        if (!ctrl.model.IsValidMapPosition(transform))
+        {
+            pos.y += 1;
+            transform.position = pos;
+            isPause = true;
+            ctrl.gameManager.FallDown();
+            ctrl.model.RefreshMap(transform);
+            return;
+        }
+        ctrl.audioManager.PlayDrop();
+    }
+
+    private void InputControl()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+        if(h != 0)
+        {
+            Vector3 pos = transform.position;
+            pos.x += h;
+            transform.position = pos;
+            if (!ctrl.model.IsValidMapPosition(transform))
+            {
+                pos.x -= h;
+                transform.position = pos;
+            }
+        }
+    }
+
+    public void PauseFall()
+    {
+        isPause = true;
+    }
+
+    public void ResumeFall()
+    {
+        isPause = false;
     }
 }

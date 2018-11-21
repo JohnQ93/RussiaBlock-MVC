@@ -23,6 +23,7 @@ public class MenuState : FSMState {
 
     public void OnStartButtonClick()
     {
+        ctrl.audioManager.PlayCursor();
         fsm.PerformTransition(Transition.StartButtonClick);
     }
 }
