@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour {
 
     public AudioClip cursor;
     public AudioClip drop;
+    public AudioClip control;
 
     private AudioSource audioSource;
 
@@ -24,6 +25,11 @@ public class AudioManager : MonoBehaviour {
     public void PlayDrop()
     {
         PlayAudio(drop);
+    }
+
+    public void PlayControl()
+    {
+        PlayAudio(control);
     }
 
     private void PlayAudio(AudioClip clip)

@@ -9,12 +9,17 @@ public class Shape : MonoBehaviour {
     SpriteRenderer[] renders;
 
     private bool isPause = false;
+    private bool isSpeedup = false;
     private float timer = 0;
     private float stepTime = 0.8f;
+    private int multiple = 20;
+
+    private Transform pivot;
 
     private void Awake()
     {
         renders = GetComponentsInChildren<SpriteRenderer>();
+        pivot = transform.Find("Pivot");
     }
 
     private void Update()
@@ -27,7 +32,6 @@ public class Shape : MonoBehaviour {
             Fall();
         }
         InputControl();
-        Debug.Log(Input.GetAxisRaw("Horizontal"));
     }
 
     public void init(Color color, Controller controller)
@@ -58,7 +62,15 @@ public class Shape : MonoBehaviour {
 
     private void InputControl()
     {
-        float h = Input.GetAxisRaw("Horizontal");
+        float h = 0;
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            h = -1;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            h = 1;
+        }
         if(h != 0)
         {
             Vector3 pos = transform.position;
@@ -69,6 +81,27 @@ public class Shape : MonoBehaviour {
                 pos.x -= h;
                 transform.position = pos;
             }
+            else
+            {
+                ctrl.audioManager.PlayControl();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            transform.RotateAround(pivot.position, Vector3.forward, -90);
+            if (!ctrl.model.IsValidMapPosition(transform))
+            {
+                transform.RotateAround(pivot.position, Vector3.forward, 90);
+            }
+            else
+            {
+                ctrl.audioManager.PlayControl();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            isSpeedup = true;
+            stepTime /= multiple;
         }
     }
 
