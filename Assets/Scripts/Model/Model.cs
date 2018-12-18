@@ -9,6 +9,20 @@ public class Model : MonoBehaviour {
 
     private Transform[,] map = new Transform[MAX_COLUMNS, MAX_ROWS];
 
+    private int score = 0;
+    private int highScore = 0;
+    private int numbersGame = 0;
+
+    public int Score { get { return score; } }
+    public int HighScore { get { return highScore; } }
+    public int NumbersGame { get { return numbersGame; } }
+
+    public bool isUpdateUI = false;
+
+    private void Awake()
+    {
+        LoadData();
+    }
 
     public bool IsValidMapPosition(Transform t)
     {
@@ -27,7 +41,7 @@ public class Model : MonoBehaviour {
         return pos.x >= 0 && pos.x < MAX_COLUMNS && pos.y >= 0;
     }
 
-    public void RefreshMap(Transform t)
+    public bool RefreshMap(Transform t)
     {
         foreach (Transform child in t)
         {
@@ -35,19 +49,35 @@ public class Model : MonoBehaviour {
             Vector2 pos = child.position.Round();
             map[(int)pos.x, (int)pos.y] = child;
         }
-        CheckMap();
+        return CheckMap();
     }
 
-    private void CheckMap()
+    private bool CheckMap()
     {
+        int count = 0;
         for (int i = 0; i < MAX_ROWS; i++)
         {
             if (CheckRowFull(i))
             {
+                count++;
                 DeleteRow(i);
                 MoveDownRowAbove(i + 1);
                 i--; //避免同时多行消除的时候只能消除一行
             }
+        }
+        if (count > 0)
+        {
+            score += count * 100;
+            if(score > highScore)
+            {
+                highScore = score;
+            }
+            isUpdateUI = true;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -88,5 +118,17 @@ public class Model : MonoBehaviour {
                 map[i, row - 1].position += new Vector3(0, -1, 0);
             }
         }
+    }
+
+    public void LoadData()
+    {
+        score = PlayerPrefs.GetInt("score", 0);
+        highScore = PlayerPrefs.GetInt("highScore", 0);
+    }
+
+    public void SaveData()
+    {
+        PlayerPrefs.SetInt("score", score);
+        PlayerPrefs.SetInt("highScore", highScore);
     }
 }

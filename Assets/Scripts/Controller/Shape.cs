@@ -53,8 +53,9 @@ public class Shape : MonoBehaviour {
             pos.y += 1;
             transform.position = pos;
             isPause = true;
+            bool isLineClear = ctrl.model.RefreshMap(transform);
+            if (isLineClear) ctrl.audioManager.PlayClear();
             ctrl.gameManager.FallDown();
-            ctrl.model.RefreshMap(transform);
             return;
         }
         ctrl.audioManager.PlayDrop();

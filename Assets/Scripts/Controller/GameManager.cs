@@ -53,5 +53,10 @@ public class GameManager : MonoBehaviour {
     public void FallDown()
     {
         currentShape = null;
+        if (ctrl.model.isUpdateUI)
+        {
+            ctrl.view.UpdateGameUI(ctrl.model.Score, ctrl.model.HighScore);
+            ctrl.model.isUpdateUI = false;
+        }
     }
 }
