@@ -55,7 +55,7 @@ public class Shape : MonoBehaviour {
             isPause = true;
             bool isLineClear = ctrl.model.RefreshMap(transform);
             if (isLineClear) ctrl.audioManager.PlayClear();
-            ctrl.gameManager.FallDown();
+            ctrl.gameManager.FallDown();//告诉gamemanager当前shape到底了，可以开始下一块了
             return;
         }
         ctrl.audioManager.PlayDrop();

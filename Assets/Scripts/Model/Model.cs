@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Model : MonoBehaviour {
 
+    public const int NORMAL_ROWS = 20;
     public const int MAX_ROWS = 23;
     public const int MAX_COLUMNS = 10;
 
@@ -39,6 +40,23 @@ public class Model : MonoBehaviour {
     private bool IsInsideMap(Vector2 pos)
     {
         return pos.x >= 0 && pos.x < MAX_COLUMNS && pos.y >= 0;
+    }
+
+    public bool IsGameOver()
+    {
+        for (int i = NORMAL_ROWS; i < MAX_ROWS; i++)
+        {
+            for (int j = 0; j < MAX_COLUMNS; j++)
+            {
+                if (map[j, i] != null)
+                {
+                    numbersGame++;
+                    SaveData();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public bool RefreshMap(Transform t)
@@ -122,13 +140,13 @@ public class Model : MonoBehaviour {
 
     public void LoadData()
     {
-        score = PlayerPrefs.GetInt("score", 0);
         highScore = PlayerPrefs.GetInt("highScore", 0);
+        numbersGame = PlayerPrefs.GetInt("numbersGame", 0);
     }
 
     public void SaveData()
     {
-        PlayerPrefs.SetInt("score", score);
         PlayerPrefs.SetInt("highScore", highScore);
+        PlayerPrefs.SetInt("numbersGame", numbersGame);
     }
 }

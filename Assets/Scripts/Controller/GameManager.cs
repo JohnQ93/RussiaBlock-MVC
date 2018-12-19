@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour {
         currentShape.init(colors[indexColor], ctrl);
     }
 
+    //方块落到底了，调用一次此方法
     public void FallDown()
     {
         currentShape = null;
@@ -57,6 +58,11 @@ public class GameManager : MonoBehaviour {
         {
             ctrl.view.UpdateGameUI(ctrl.model.Score, ctrl.model.HighScore);
             ctrl.model.isUpdateUI = false;
+        }
+        if (ctrl.model.IsGameOver())
+        {
+            PauseGame();
+            ctrl.view.ShowGameoverUI(ctrl.model.Score);
         }
     }
 }

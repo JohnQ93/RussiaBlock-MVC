@@ -10,9 +10,11 @@ public class View : MonoBehaviour {
     private RectTransform menuUI;
     private RectTransform gameUI;
     private GameObject restartButton;
+    private GameObject gameoverUI;
 
     private Text score;
     private Text highScore;
+    private Text gameoverScore;
 
     private void Awake()
     {
@@ -20,9 +22,11 @@ public class View : MonoBehaviour {
         menuUI= transform.Find("Canvas/MenuUI") as RectTransform;
         gameUI = transform.Find("Canvas/GameUI") as RectTransform;
         restartButton = transform.Find("Canvas/MenuUI/ButtonRestart").gameObject;
+        gameoverUI = transform.Find("Canvas/GameOverUI").gameObject;
 
         score = transform.Find("Canvas/GameUI/ScoreLabel/Text").GetComponent<Text>();
         highScore = transform.Find("Canvas/GameUI/HighScoreLabel/Text").GetComponent<Text>();
+        gameoverScore = transform.Find("Canvas/GameOverUI/Score").GetComponent<Text>();
     }
 
     public void ShowMenuUI()
@@ -41,9 +45,9 @@ public class View : MonoBehaviour {
                 .OnComplete(delegate { menuUI.gameObject.SetActive(false); });
     }
 
-    public void ShowGameUI()
+    public void ShowGameUI(int score, int highScore)
     {
-        UpdateGameUI(0, 0);
+        UpdateGameUI(score, highScore);
         gameUI.gameObject.SetActive(true);
         gameUI.DOAnchorPosY(-128.7f, 0.5f);
     }
@@ -63,5 +67,11 @@ public class View : MonoBehaviour {
     {
         this.score.text = score.ToString();
         this.highScore.text = highScore.ToString();
+    }
+
+    public void ShowGameoverUI(int score)
+    {
+        gameoverScore.text = score.ToString();
+        gameoverUI.SetActive(true);
     }
 }
