@@ -7,6 +7,7 @@ TagManager:
   - Model
   - View
   - Block
+  - Ctrl
   layers:
   - Default
   - TransparentFX

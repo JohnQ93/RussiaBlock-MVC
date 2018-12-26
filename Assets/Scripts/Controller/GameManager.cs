@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour {
     private bool isPause = true;
     public Shape[] shapes;
     public Color[] colors;
-
+    private Transform blockHolder;
     private Controller ctrl;
 
     private void Awake()
     {
         ctrl = transform.GetComponent<Controller>();
+        blockHolder = transform.Find("BlockHolder");
     }
 
     void Update () {
@@ -46,8 +47,17 @@ public class GameManager : MonoBehaviour {
     {
         int index = Random.Range(0, shapes.Length);
         int indexColor = Random.Range(0, colors.Length);
-        currentShape = Instantiate(shapes[index]);
+        currentShape = Instantiate(shapes[index], blockHolder);
         currentShape.init(colors[indexColor], ctrl);
+    }
+
+    public void ClearShape()
+    {
+        if(currentShape != null)
+        {
+            Destroy(currentShape.gameObject);
+            currentShape = null;
+        }
     }
 
     //方块落到底了，调用一次此方法
@@ -59,6 +69,15 @@ public class GameManager : MonoBehaviour {
             ctrl.view.UpdateGameUI(ctrl.model.Score, ctrl.model.HighScore);
             ctrl.model.isUpdateUI = false;
         }
+
+        foreach (Transform t in blockHolder)
+        {
+            if(t.childCount <= 1)
+            {
+                Destroy(t.gameObject);
+            }
+        }
+
         if (ctrl.model.IsGameOver())
         {
             PauseGame();

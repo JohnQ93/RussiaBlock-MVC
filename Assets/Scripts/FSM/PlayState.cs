@@ -29,4 +29,13 @@ public class PlayState : FSMState {
         ctrl.audioManager.PlayCursor();
         fsm.PerformTransition(Transition.PauseButtonClick);
     }
+
+    public void OnRestartButtonClick()
+    {
+        ctrl.audioManager.PlayCursor();
+        ctrl.view.HideGameoverUI();
+        ctrl.model.Restart();
+        ctrl.gameManager.StartGame();
+        ctrl.view.UpdateGameUI(ctrl.model.Score, ctrl.model.HighScore);
+    }
 }

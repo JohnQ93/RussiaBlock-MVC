@@ -149,4 +149,28 @@ public class Model : MonoBehaviour {
         PlayerPrefs.SetInt("highScore", highScore);
         PlayerPrefs.SetInt("numbersGame", numbersGame);
     }
+
+    public void Restart()
+    {
+        for (int i = 0; i < MAX_ROWS; i++)
+        {
+            for (int j = 0; j < MAX_COLUMNS; j++)
+            {
+                if(map[j,i] != null)
+                {
+                    Destroy(map[j, i].gameObject);
+                    map[j, i] = null;
+                }
+            }
+        }
+        score = 0;
+    }
+
+    public void ClearData()
+    {
+        score = 0;
+        highScore = 0;
+        numbersGame = 0;
+        SaveData();
+    }
 }

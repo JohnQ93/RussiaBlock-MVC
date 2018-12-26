@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
+    private Controller ctrl;
     public AudioClip cursor;
     public AudioClip drop;
     public AudioClip control;
@@ -15,6 +16,7 @@ public class AudioManager : MonoBehaviour {
 
     private void Awake()
     {
+        ctrl = transform.GetComponent<Controller>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -43,5 +45,15 @@ public class AudioManager : MonoBehaviour {
         if (isMute) return;
         audioSource.clip = clip;
         audioSource.Play();
+    }
+
+    public void SetAudioMute()
+    {
+        isMute = !isMute;
+        ctrl.view.SetMuteActive(isMute);
+        if(isMute == false)
+        {
+            PlayCursor();
+        }
     }
 }

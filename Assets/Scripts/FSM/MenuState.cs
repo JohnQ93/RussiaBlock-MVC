@@ -26,4 +26,25 @@ public class MenuState : FSMState {
         ctrl.audioManager.PlayCursor();
         fsm.PerformTransition(Transition.StartButtonClick);
     }
+
+    public void OnRankButtonClick()
+    {
+        ctrl.audioManager.PlayCursor();
+        ctrl.view.SetRankUI(ctrl.model.Score, ctrl.model.HighScore, ctrl.model.NumbersGame);
+    }
+
+    public void OnDestroyData()
+    {
+        ctrl.audioManager.PlayCursor();
+        ctrl.model.ClearData();
+        OnRankButtonClick();
+    }
+
+    public void OnRestartButtonClick()
+    {
+        ctrl.audioManager.PlayCursor();
+        ctrl.model.Restart();
+        ctrl.gameManager.ClearShape();
+        fsm.PerformTransition(Transition.StartButtonClick);
+    }
 }
